@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intellifit Workout App</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="style.css" rel="stylesheet" />
+    <!-- Three.js from jsDelivr CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="brand-logo mobile-center-logo">
+                <img src="logo.svg" alt="IntelliFit Logo" class="logo-img">
+            </a>
+            
+            <button class="mobile-menu-btn d-md-none" id="mobileMenuToggle">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <!-- Desktop Nav -->
+            <nav class="nav-links d-none d-md-flex">
+                <a class="nav-link nav-link-active" href="#home"
+                    onclick="document.getElementById('home').scrollIntoView({ behavior: 'smooth' }); return false;">Home</a>
+                <a class="nav-link" href="#pinned-section"
+                    onclick="document.getElementById('pinned-section').scrollIntoView({ behavior: 'smooth' }); return false;">Tutorial</a>
+                <a class="nav-link" href="#pricing"
+                    onclick="document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' }); return false;">Pricing</a>
+                <a class="nav-link" href="#help"
+                    onclick="document.getElementById('help').scrollIntoView({ behavior: 'smooth' }); return false;">Help</a>
+                <a class="nav-link" href="#about"
+                    onclick="document.getElementById('about').scrollIntoView({ behavior: 'smooth' }); return false;">About</a>
+            </nav>
+            <div class="header-action d-none d-md-block">
+                <button class="btn-login" onclick="window.location.href='dashboard.html'">
+                    Login
+                    <span class="material-symbols-outlined icon-sm">person</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Overlay Menu -->
+        <div class="mobile-overlay-menu" id="mobileOverlayMenu">
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="bi bi-x-lg"></i>
+            </button>
+            <nav class="mobile-nav-links">
+                <a class="nav-link nav-link-active" href="#home" onclick="closeMobileMenu(); document.getElementById('home').scrollIntoView({ behavior: 'smooth' }); return false;">Home</a>
+                <a class="nav-link" href="#pinned-section" onclick="closeMobileMenu(); document.getElementById('pinned-section').scrollIntoView({ behavior: 'smooth' }); return false;">Tutorial</a>
+                <a class="nav-link" href="#pricing" onclick="closeMobileMenu(); document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' }); return false;">Pricing</a>
+                <a class="nav-link" href="#help" onclick="closeMobileMenu(); document.getElementById('help').scrollIntoView({ behavior: 'smooth' }); return false;">Help</a>
+                <a class="nav-link" href="#about" onclick="closeMobileMenu(); document.getElementById('about').scrollIntoView({ behavior: 'smooth' }); return false;">About</a>
+                <button class="btn-login mt-4 d-flex" onclick="window.location.href='dashboard.html'" style="width: 100%; justify-content: center;">
+                    Login
+                    <span class="material-symbols-outlined icon-sm">person</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section" id="home">
+            <div class="hero-container">
+                <!-- 3D Model Container -->
+                <div id="model-container"
+                    style="width: 65rem; height: 65rem; position: absolute; left: 60%; top: 100%; transform: translate(-50%, -50%); z-index: 5;">
+                </div>
+
+                <div class="hero-text-content">
+                    <h1 class="hero-title">A Fully Customized<br />Workout Plan</h1>
+                    <p class="hero-subtitle">Reject the rigid gym schedules. Embrace total freedom. <span
+                            class="brand-bold">IntelliFit</span> delivers high-velocity, personalized home workouts
+                        without ever stepping out the front door.</p>
+                    <button class="btn-primary mt-sm" onclick="window.location.href='dashboard.html'">
+                        Start Now
+                        <span class="material-symbols-outlined icon-sm">arrow_forward</span>
+                    </button>
+                </div>
+                <!-- Hero Image & Stats Group -->
+                <div class="hero-visual-content">
+                    <div class="hero-visual-wrapper">
+                        <!-- Floating Stats Panel -->
+                        <div class="stats-panel">
+                            <div class="stats-card mb-sm">
+                                <div class="avatar-group">
+                                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzzrGAwX5QqfRoLU3svQUpVpemBbn4n-v6VVvo3ANO3_cDJGcGZCr7QjtFLaR_5QaXU_yDkCmRMFRlaGbFxnOCoWEtASYMUSXbd-8-JyGHkT-AKAKKcFK2IoGGATYKvdsv0jrpac00RIKc_93g5h6c70BfRuO8YmYx7M6Awarr9K-Xyyu-8t6jj3HlBsgazLq3sFqctVfNh5TJiJky_O67isPWGWQ-hjoOU5PiEvXMgAbIiLQvyFiik2x6kdfW1I7KvOeNB7uYbic"
+                                        alt="User 1" />
+                                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIjWvRAKK6J5EgR_LrQMutaQKcydrncd8N5G0UQEPUrPXfywwpc_ciw1_yIFP0J4V5TgL-YDOxuxpzA2p5SYowP93ll1SoDxDSkMH_mr1RJCh0rG6N3tpmXKS24RlCANyoYLYay4f9-L49fMYrpTWhUi3MdBSE4LEbcItZkbUR69sNdVqPUtx4gHsyGG6wR8j7TgzY3qYGZKqSswa9B4G5beIcCXqNHL9GjeWl8ph9WmgZBUl0JhxzZo5rn3E9cvU9YmHaRFNMKkE"
+                                        alt="User 2" />
+                                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKd7qbETxTICqKGSg9BUbWO9FPijXQAZbRAuDT0-w4eafNztBQxwI1WOic5-fMJ0AezYTAO-nkS1YulbRvjjL76Nn1mw5BZpsxDpfaDqJtn_pfhVVyhVZZYHYkJJ8GdtSDOleMumUYTxy2POjDyBe3EmsV4Rz9XLsG9PQgCeoUxPU1zHE4G3fXt6rqnzqkBQVq2EwxCPnxwztHWaNtq6e4IPBEmLvKw53WAelfwkfBsb3WJG_1DIMgLTVEn2ThST3EeD6D4V350rM"
+                                        alt="User 3" />
+                                </div>
+                                <div class="stats-val">1.6k</div>
+                                <div class="stats-label">Members Registered</div>
+                            </div>
+                            <div class="stats-grid">
+                                <div class="stats-card">
+                                    <span class="material-symbols-outlined icon-dark">play_circle</span>
+                                    <div class="stats-val-sm">+500</div>
+                                    <div class="stats-label-sm">Video Tutorial</div>
+                                </div>
+                                <div class="stats-card">
+                                    <span class="material-symbols-outlined icon-dark">person_add</span>
+                                    <div class="stats-val-sm">+342</div>
+                                    <div class="stats-label-sm">Active Students</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Watch Video Bubble -->
+                        <div class="watch-video" style="cursor: pointer;"
+                            onclick="document.getElementById('pinned-section').scrollIntoView({ behavior: 'smooth' });">
+                            <div class="watch-video-icon gradient-peach shadow-inner">
+                                <span class="material-symbols-outlined">play_arrow</span>
+                            </div>
+                            <span class="watch-video-text">Watch Video</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Back button -->
+                <div class="back-btn"
+                    onclick="document.getElementById('pinned-section').scrollIntoView({ behavior: 'smooth' });">
+                    <span class="material-symbols-outlined icon-lg icon-rotate">arrow_back</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section" id="pinned-section">
+            <div class="features-container">
+                <!-- Left Content: Video & Text -->
+                <div class="features-left">
+                    <div class="feature-video-box"
+                        style="padding: 0; overflow: hidden; border: none; aspect-ratio: auto;">
+                        <video src="Exercises/tutorial.mp4" autoplay loop muted playsinline
+                            style="width: 100%; height: auto; object-fit: contain; pointer-events: none;">
+                        </video>
+                    </div>
+
+                    <div class="features-text-group">
+                        <h2 class="features-left-title">Master Your<br>High-Performance Routine</h2>
+                        <p class="features-left-subtitle">Watch exactly how Intellifit dynamically adjusts to your
+                            unique biosignals and performance metrics to build the perfect workout on the fly.</p>
+                    </div>
+                </div>
+
+                <!-- Right Side Card Stack -->
+                <div class="features-right">
+                    <div class="card-stack">
+                        <!-- Card 1 (Bottom of the stack) - AI Coach -->
+                        <div class="card">
+                            <div class="card-badge">24/7 Support</div>
+                            <div class="card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+                                    <path d="M9 10h.01" />
+                                    <path d="M15 10h.01" />
+                                    <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                                </svg>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">AI Fitness Coach</h3>
+                                <p class="card-desc">Chat instantly with your personal AI trainer for form tips and
+                                    motivation.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 - AI Suggestions -->
+                        <div class="card">
+                            <div class="card-badge">Smart Logic</div>
+                            <div class="card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path
+                                        d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+                                </svg>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">AI Suggestions</h3>
+                                <p class="card-desc">Intelligent, real-time adjustments to your sets, reps, and weights.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 - Plan-Based -->
+                        <div class="card">
+                            <div class="card-badge">Structured</div>
+                            <div class="card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                    <line x1="16" y1="2" x2="16" y2="6" />
+                                    <line x1="8" y1="2" x2="8" y2="6" />
+                                    <line x1="3" y1="10" x2="21" y2="10" />
+                                    <path d="M8 14h.01" />
+                                    <path d="M12 14h.01" />
+                                    <path d="M16 14h.01" />
+                                    <path d="M8 18h.01" />
+                                    <path d="M12 18h.01" />
+                                    <path d="M16 18h.01" />
+                                </svg>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Plan-Based Training</h3>
+                                <p class="card-desc">Follow step-by-step workout programs designed specifically for your
+                                    goals.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 (Top of the stack) - Home Workout -->
+                        <div class="card">
+                            <div class="card-badge">Anywhere</div>
+                            <div class="card-icon">
+                                <svg viewBox="-2 -2 28 28" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14.4 14.4 9.6 9.6" />
+                                    <path
+                                        d="M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z" />
+                                    <path
+                                        d="M2.515 5.343a2 2 0 1 1 2.828-2.828l1.768 1.767a2 2 0 1 1 2.829 2.828L3.576 13.475a2 2 0 1 1-2.829-2.829l1.768-1.767a2 2 0 1 1-2.829-2.828z" />
+                                </svg>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Home Workouts</h3>
+                                <p class="card-desc">Transform your living room into a premium gym with guided routines.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="pricing-section" id="pricing">
+            <div class="pricing-container">
+                <div class="pricing-grid">
+                    <!-- Tier 1 -->
+                    <div class="pricing-card">
+                        <div class="pricing-tier">Tier 1: The Starter Plan</div>
+                        <h3 class="pricing-name">Basic Fit</h3>
+                        <div class="pricing-price">$0 <span>/ Free</span></div>
+                        <p class="pricing-tagline">Perfect for starting your home workout routine.</p>
+                        <ul class="pricing-features">
+                            <li><span class="material-symbols-outlined">check_circle</span> Access to the Main Workout
+                                Dashboard</li>
+                            <li><span class="material-symbols-outlined">check_circle</span> Standard exercise library
+                                (Cardio, Core, Full Body)</li>
+                            <li><span class="material-symbols-outlined">check_circle</span> Interactive workout timers
+                            </li>
+                            <li><span class="material-symbols-outlined">check_circle</span> Manual workout navigation
+                            </li>
+                        </ul>
+                        <button class="pricing-btn">Get Started</button>
+                    </div>
+
+                    <!-- Tier 2 -->
+                    <div class="pricing-card pricing-highlight-card">
+                        <div class="pricing-tier">Tier 2: The Sweet Spot</div>
+                        <h3 class="pricing-name">IntelliFit Pro</h3>
+                        <div class="pricing-price">$9.99 <span>/ month</span></div>
+                        <p class="pricing-tagline">Unlock the power of dynamic AI coaching.</p>
+                        <ul class="pricing-features">
+                            <li><span class="material-symbols-outlined">check_circle</span> Everything in Basic</li>
+                            <li><span class="material-symbols-outlined">check_circle</span> Unlimited access to the AI
+                                Fitness Coach Chat</li>
+                            <li><span class="material-symbols-outlined">check_circle</span> "Auto-Next" continuous
+                                guided workout flow</li>
+                            <li><span class="material-symbols-outlined">check_circle</span> Dynamic data-driven routine
+                                rendering</li>
+                        </ul>
+                        <button class="pricing-btn">Start 7-Day Trial</button>
+                    </div>
+
+                    <!-- Tier 3 -->
+                    <div class="pricing-card">
+                        <div class="pricing-tier">Tier 3: The Anchor (Premium)</div>
+                        <h3 class="pricing-name">Elite</h3>
+                        <div class="pricing-price">$19.99 <span>/ month</span></div>
+                        <p class="pricing-tagline">For users who want priority access and future tech.</p>
+                        <ul class="pricing-features">
+                            <li><span class="material-symbols-outlined">check_circle</span> Everything in Pro</li>
+                            <li><span class="material-symbols-outlined">check_circle</span> Priority API response times
+                                for AI Chat</li>
+                            <li><span class="material-symbols-outlined">check_circle</span> Early access to future
+                                updates (e.g., upcoming Posture Tracking)</li>
+                            <li><span class="material-symbols-outlined">check_circle</span> Ad-free dashboard interface
+                            </li>
+                        </ul>
+                        <button class="pricing-btn">Upgrade to Elite</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Help / FAQ Section -->
+        <section class="faq-section" id="help">
+            <div class="faq-container">
+                <h2 class="faq-title">Frequently Asked Questions</h2>
+                <div class="faq-list">
+                    <!-- Q1 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Do I need any gym equipment to use IntelliFit?</h3>
+                            <span class="material-symbols-outlined faq-icon">expand_more</span>
+                        </div>
+                        <div class="faq-answer-wrapper">
+                            <div class="faq-answer">
+                                <p class="faq-answer-inner">Not at all. The Dynamic Workout Engine specializes in
+                                    bodyweight exercises, but you can update your profile if you gain access to
+                                    dumbbells or resistance bands.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Q2 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How does the AI Fitness Coach work?</h3>
+                            <span class="material-symbols-outlined faq-icon">expand_more</span>
+                        </div>
+                        <div class="faq-answer-wrapper">
+                            <div class="faq-answer">
+                                <p class="faq-answer-inner">Our integrated AI chat allows you to ask real-time questions
+                                    about your routine, muscle recovery, and diet. It provides instant, personalized
+                                    advice based on your fitness goals.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Q3 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Is the Basic Fit plan really free forever?</h3>
+                            <span class="material-symbols-outlined faq-icon">expand_more</span>
+                        </div>
+                        <div class="faq-answer-wrapper">
+                            <div class="faq-answer">
+                                <p class="faq-answer-inner">Yes! The Basic Fit plan gives you permanent access to our
+                                    core workout dashboard and standard exercise library at no cost.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Q4 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Can I use IntelliFit on my phone?</h3>
+                            <span class="material-symbols-outlined faq-icon">expand_more</span>
+                        </div>
+                        <div class="faq-answer-wrapper">
+                            <div class="faq-answer">
+                                <p class="faq-answer-inner">Absolutely. The platform is fully responsive and designed to
+                                    work seamlessly across desktop, tablet, and mobile browsers.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer / About -->
+        <footer class="footer" id="about">
+            <div class="container footer-container">
+                <div class="row g-4 align-items-start">
+                    <div class="col-md-5 col-lg-5">
+                        <div class="footer-logo">
+                            <img src="logo.svg" alt="IntelliFit Logo" class="logo-img"
+                                style="filter: brightness(0) invert(1);">
+                        </div>
+                        <p class="footer-about-text">IntelliFit bridges the gap between professional coaching and home
+                            convenience. Powered by advanced AI, we deliver dynamic workouts, real-time feedback, and
+                            intelligent nutritional advice to help you train smarter.</p>
+                    </div>
+                    <div class="col-md-3 col-lg-3 footer-quick-col text-md-center">
+                        <h5 class="footer-section-title">Quick Links</h5>
+                        <ul class="footer-list list-unstyled mb-0">
+                            <li><a href="#home"
+                                    onclick="document.getElementById('home').scrollIntoView({ behavior: 'smooth' }); return false;">Home</a>
+                            </li>
+                            <li><a href="#pinned-section"
+                                    onclick="document.getElementById('pinned-section').scrollIntoView({ behavior: 'smooth' }); return false;">Features</a>
+                            </li>
+                            <li><a href="#pricing"
+                                    onclick="document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' }); return false;">Pricing</a>
+                            </li>
+                            <li><a href="#help"
+                                    onclick="document.getElementById('help').scrollIntoView({ behavior: 'smooth' }); return false;">Support</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-lg-4 footer-legal-col">
+                        <h5 class="footer-section-title">Legal & Socials</h5>
+                        <ul class="footer-list list-unstyled mb-0">
+                            <li><a href="#" onclick="return false;">Privacy Policy</a></li>
+                            <li><a href="#" onclick="return false;">Terms of Service</a></li>
+                        </ul>
+                        <div class="footer-socials" aria-label="Social links">
+                            <a href="#" onclick="return false;" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#" onclick="return false;" aria-label="Instagram"><i
+                                    class="bi bi-instagram"></i></a>
+                            <a href="#" onclick="return false;" aria-label="GitHub"><i class="bi bi-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-copyright">© 2026 IntelliFit. All rights reserved.</div>
+            </div>
+        </footer>
+        </div>
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,158 @@
+{
+  "exercises": {
+    "bicep_curl": {
+      "display_name": "Bicep Curl",
+      "ready_frames": 6,
+      "landmarks": {
+        "shoulder": 11,
+        "elbow": 13,
+        "wrist": 15
+      },
+      "stages": {
+        "down": {
+          "angle_min": 120,
+          "angle_max": 180
+        },
+        "up": {
+          "angle_min": 30,
+          "angle_max": 90
+        }
+      },
+      "posture_rules": [
+        {
+          "id": "incomplete_extension",
+          "description": "Arm not fully extended at bottom",
+          "check": {
+            "variable": "down_angle",
+            "operator": "<",
+            "threshold": 140
+          },
+          "feedback": "Fully extend your arm at the bottom",
+          "when": "down"
+        },
+        {
+          "id": "incomplete_curl",
+          "description": "Not curling high enough",
+          "check": {
+            "variable": "up_angle",
+            "operator": ">",
+            "threshold": 70
+          },
+          "feedback": "Curl higher — bring your wrist closer to your shoulder",
+          "when": "up"
+        }
+      ],
+      "good_rep_message": "Good curl! Keep it up.",
+      "target_reps": 12
+    },
+    "squat": {
+      "display_name": "Squat",
+      "ready_frames": 6,
+      "landmarks": {
+        "hip": 23,
+        "knee": 25,
+        "ankle": 27,
+        "shoulder": 11
+      },
+      "stages": {
+        "down": {
+          "angle_min": 70,
+          "angle_max": 140
+        },
+        "up": {
+          "angle_min": 160,
+          "angle_max": 180
+        }
+      },
+      "posture_rules": [
+        {
+          "id": "shallow_squat",
+          "description": "Squat not deep enough",
+          "check": {
+            "variable": "down_angle",
+            "operator": ">",
+            "threshold": 110
+          },
+          "feedback": "Lower your squat — go deeper",
+          "when": "down"
+        },
+        {
+          "id": "forward_lean",
+          "description": "Excessive forward bending",
+          "check": {
+            "variable": "torso_angle",
+            "operator": "<",
+            "threshold": 50
+          },
+          "feedback": "Straighten your back — keep your chest up",
+          "when": "down"
+        },
+        {
+          "id": "knees_over_toes",
+          "description": "Knees caving inward",
+          "check": {
+            "variable": "knee_alignment",
+            "operator": ">",
+            "threshold": 15
+          },
+          "feedback": "Push your knees outward — align with your toes",
+          "when": "down"
+        }
+      ],
+      "good_rep_message": "Great squat! Perfect depth.",
+      "target_reps": 15
+    }
+  },
+  "gamification": {
+    "badges": {
+      "first_workout": {
+        "name": "First Step",
+        "description": "Completed your first workout",
+        "icon": "🏅"
+      },
+      "streak_3": {
+        "name": "On a Roll",
+        "description": "3-day workout streak",
+        "icon": "🔥"
+      },
+      "streak_7": {
+        "name": "Week Warrior",
+        "description": "7-day workout streak",
+        "icon": "⚡"
+      },
+      "streak_30": {
+        "name": "Iron Will",
+        "description": "30-day workout streak",
+        "icon": "💪"
+      },
+      "reps_100": {
+        "name": "Century Club",
+        "description": "100 total repetitions",
+        "icon": "💯"
+      },
+      "reps_500": {
+        "name": "Rep Machine",
+        "description": "500 total repetitions",
+        "icon": "🤖"
+      },
+      "perfect_form": {
+        "name": "Perfect Form",
+        "description": "90%+ posture accuracy in a session",
+        "icon": "⭐"
+      }
+    },
+    "milestones": {
+      "reps": [10, 50, 100, 250, 500, 1000],
+      "streak_days": [3, 7, 14, 30, 60, 90]
+    }
+  },
+  "app_settings": {
+    "webcam_width": 640,
+    "webcam_height": 480,
+    "mediapipe_confidence": 0.7,
+    "voice_feedback_enabled": true,
+    "skeleton_color": [0, 255, 0],
+    "warning_color": [0, 0, 255],
+    "good_color": [0, 255, 0]
+  }
+}

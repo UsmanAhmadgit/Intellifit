@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "dev": "serve .",
+    "frontend": "serve ."
+  },
+  "dependencies": {
+    "three": "^0.184.0"
+  },
+  "devDependencies": {
+    "serve": "^14.2.6"
+  }
+}

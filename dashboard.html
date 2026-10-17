@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Dashboard</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-grid">
+        <aside class="left-rail">
+            <a href="index.html" class="logo-mini"><img src="logo.svg" alt="IntelliFit" class="logo-img"></a>
+            <div class="rail-pill">
+                <a href="#home" class="nav-icon active" data-page="home" title="Home" aria-label="Home"><i class="bi bi-house-door-fill"></i></a>
+                <a href="#coach" class="nav-icon" data-page="coach" title="AI Coach" aria-label="AI Coach"><i class="bi bi-robot"></i></a>
+                <a href="#community" class="nav-icon" data-page="community" title="Community" aria-label="Community"><i class="bi bi-people"></i></a>
+                <a href="#settings" class="nav-icon" data-page="settings" title="Settings" aria-label="Settings"><i class="bi bi-gear"></i></a>
+                <a href="#analytics" class="nav-icon" data-page="analytics" title="Analytics" aria-label="Analytics"><i class="bi bi-bar-chart-line"></i></a>
+                <div class="nav-icon mobile-profile-icon" id="mobileProfileToggle" style="position: relative; cursor: pointer;">
+                    <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Ryan" alt="avatar" style="width: 26px; height: 26px; border-radius: 50%; border: 1px solid #fff;">
+                    <a href="index.html" class="mobile-logout-popup" id="mobileLogoutPopup">
+                        <i class="bi bi-box-arrow-right"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-column">
+            <div id="homeWorkspace">
+            <div class="exercise-tabs" id="exerciseTabs">
+                <button type="button" class="exercise-tab active" data-exercise="Chest">Chest</button>
+                <button type="button" class="exercise-tab" data-exercise="Shoulder">Shoulder</button>
+                <button type="button" class="exercise-tab" data-exercise="Abs">Abs</button>
+                <button type="button" class="exercise-tab" data-exercise="Biceps">Biceps</button>
+                <button type="button" class="exercise-tab" data-exercise="Legs">Legs</button>
+            </div>
+
+            <section class="stage-card">
+                <div class="video-container">
+                    <div id="mediaContainer">
+                        <video src="Exercises/standard_pushups.mp4" class="video-media" loop muted playsinline></video>
+                    </div>
+
+                    <div class="video-title-overlay">
+                        <h3>Exercise <span id="exercisePosition">1</span>/<span id="exerciseTotal">5</span></h3>
+                        <p id="selectedExerciseLabel">Standard Pushup</p>
+                    </div>
+
+                    <div class="timer-wrapper" id="timerToggle">
+                        <svg class="timer-svg" viewBox="0 0 80 80">
+                            <circle class="timer-circle-bg" cx="40" cy="40" r="35"></circle>
+                            <circle class="timer-circle-progress" id="timerProgress" cx="40" cy="40" r="35"></circle>
+                        </svg>
+                        <span class="timer-time" id="timerDisplay">30 sec</span>
+                        <i class="bi bi-pause-fill timer-action-icon" id="playPauseIcon"></i>
+                    </div>
+
+                    <button type="button" class="next-wrapper" id="nextSetBtn" aria-label="Next set">
+                        <span class="next-inner-circle">
+                            <i class="bi bi-arrow-right-short"></i>
+                        </span>
+                    </button>
+
+                    <div class="set-strip" aria-label="Set progress">
+                        <div class="set-box" data-set-box="0">SET 1</div>
+                        <div class="set-box" data-set-box="1">SET 2</div>
+                        <div class="set-box" data-set-box="2">SET 3</div>
+                        <div class="set-box done-control" id="doneSetBtn">DONE SET</div>
+                    </div>
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-pill">
+                        <div class="stat-icon icon-yellow"><i class="bi bi-person-arms-up"></i></div>
+                        <div>
+                            <strong id="exerciseStatText">Chest</strong>
+                            <small>EXERCISE</small>
+                        </div>
+                    </div>
+                    <div class="stat-pill">
+                        <div class="stat-icon icon-green"><i class="bi bi-clock-fill"></i></div>
+                        <div>
+                            <strong id="statPerSet">15 reps</strong>
+                            <small>PER SET</small>
+                        </div>
+                    </div>
+                    <div class="stat-pill">
+                        <div class="stat-icon icon-purple"><i class="bi bi-star-fill"></i></div>
+                        <div>
+                            <strong id="statTotalTime">4m 30s</strong>
+                            <small>TOTAL TIME</small>
+                        </div>
+                    </div>
+                    <div class="stat-pill">
+                        <div class="stat-icon icon-pink"><i class="bi bi-fire"></i></div>
+                        <div>
+                            <strong id="statCalories">~15 kcal</strong>
+                            <small>CALORIES</small>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="ai-coach-card" id="aiCoach">
+                <div class="ai-coach-heading">
+                    <div>
+                        <div class="section-label">AI FORM COACH</div>
+                        <h2>Train with live form feedback</h2>
+                        <p>Use your camera to count clean reps and receive movement corrections.</p>
+                    </div>
+                    <span class="coach-status" id="coachStatus">READY</span>
+                </div>
+                <div class="ai-coach-controls">
+                    <label>
+                        Exercise
+                        <select id="cvExercise">
+                            <option value="bicep_curl">Bicep Curl</option>
+                            <option value="squat">Squat</option>
+                        </select>
+                    </label>
+                    <label>
+                        Target reps
+                        <input id="cvTargetReps" type="number" min="1" max="100" value="12">
+                    </label>
+                    <button class="coach-button coach-button-primary" id="startCoach" type="button">
+                        <i class="bi bi-camera-video"></i> Start AI Coach
+                    </button>
+                    <button class="coach-button coach-button-secondary" id="stopCoach" type="button" disabled>
+                        <i class="bi bi-stop-circle"></i> Stop & Save
+                    </button>
+                </div>
+                <div class="ai-coach-grid">
+                    <div class="coach-camera-wrap">
+                        <video id="coachCamera" autoplay muted playsinline></video>
+                        <div class="camera-placeholder" id="cameraPlaceholder">
+                            <i class="bi bi-person-video3"></i>
+                            <span>Camera preview will appear here</span>
+                        </div>
+                    </div>
+                    <div class="coach-insights">
+                        <div class="coach-metric-row">
+                            <div class="coach-metric"><span>REPS</span><strong id="cvReps">0 / 12</strong></div>
+                            <div class="coach-metric"><span>ACCURACY</span><strong id="cvAccuracy">0%</strong></div>
+                        </div>
+                        <div class="coach-stage"><span>PHASE</span><strong id="cvStage">Waiting to start</strong></div>
+                        <div class="coach-feedback" id="cvFeedback">
+                            <i class="bi bi-stars"></i>
+                            <span>Start a session and keep your full body in frame.</span>
+                        </div>
+                    </div>
+                </div>
+                <canvas id="coachCanvas" aria-hidden="true"></canvas>
+            </section>
+
+            <section class="description-card">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+                    <div class="section-label" style="margin-bottom:0;">DESCRIPTION</div>
+                    <span id="statDifficulty" style="font-size:0.62rem; font-weight:800; letter-spacing:0.06em; padding:3px 10px; border-radius:20px; background:#fff3e0; color:#e65100;">MEDIUM</span>
+                </div>
+                <div id="descriptionContent">
+                    <div class="step-row">
+                        <div class="step-number">1</div>
+                        <div>
+                            <h6>Start point:</h6>
+                            <p>Begin in a high plank position, hands slightly wider than shoulder-width apart, arms straight, and core engaged.</p>
+                        </div>
+                    </div>
+                    <div class="step-row">
+                        <div class="step-number">2</div>
+                        <div>
+                            <h6>Actions:</h6>
+                            <p>Lower your body until your chest nearly touches the floor, keeping elbows tucked at a 45-degree angle. Push back up to the starting position.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            </div>
+
+            <section class="page-view" id="coachPage" data-page-view="coach">
+                <div class="page-heading-row">
+                    <div>
+                        <div class="section-label">AI COACH</div>
+                        <h1>Move with more precision.</h1>
+                        <p>Live guidance that turns every repetition into useful feedback.</p>
+                    </div>
+                    <span class="page-kicker"><i class="bi bi-broadcast-pin"></i> CAMERA READY</span>
+                </div>
+                <div class="coach-page-grid">
+                    <article class="feature-panel coach-hero-panel">
+                        <div class="coach-orbit"><i class="bi bi-person-arms-up"></i></div>
+                        <div>
+                            <span class="panel-eyebrow">TODAY'S FOCUS</span>
+                            <h2>Build clean strength</h2>
+                            <p>Choose an exercise, set your target, and let IntelliFit watch your tempo, range, and alignment.</p>
+                            <button class="dark-action" type="button" data-return-home="aiCoach"><i class="bi bi-camera-video"></i> Open live coach</button>
+                        </div>
+                    </article>
+                    <article class="feature-panel coach-score-panel">
+                        <span class="panel-eyebrow">FORM SCORE</span>
+                        <strong class="score-number">86<span>%</span></strong>
+                        <div class="score-track"><span style="width:86%"></span></div>
+                        <p>You're holding steady form across your last three sessions.</p>
+                        <div class="score-meta"><span><i class="bi bi-arrow-up-right"></i> 8.4%</span><small>vs last week</small></div>
+                    </article>
+                </div>
+                <div class="section-title-row"><div><span class="panel-eyebrow">COACHING TOOLS</span><h2>Make the next rep better</h2></div></div>
+                <div class="tool-grid">
+                    <article class="mini-panel"><i class="bi bi-bullseye"></i><h3>Range of motion</h3><p>Reach the right depth without rushing the transition.</p><span class="tool-status good">ON TRACK</span></article>
+                    <article class="mini-panel"><i class="bi bi-soundwave"></i><h3>Tempo guidance</h3><p>Slow the lowering phase to make each rep count.</p><span class="tool-status warm">IMPROVE</span></article>
+                    <article class="mini-panel"><i class="bi bi-chat-heart"></i><h3>Instant cues</h3><p>Get clear corrections while your movement is happening.</p><span class="tool-status good">READY</span></article>
+                </div>
+            </section>
+
+            <section class="page-view" id="communityPage" data-page-view="community">
+                <div class="page-heading-row">
+                    <div><div class="section-label">COMMUNITY</div><h1>Train together, stay accountable.</h1><p>A quiet space for progress, encouragement, and small wins.</p></div>
+                    <button class="outline-action" type="button"><i class="bi bi-plus-lg"></i> Create check-in</button>
+                </div>
+                <div class="community-grid">
+                    <article class="feature-panel community-feature"><span class="panel-eyebrow">WEEKLY PULSE</span><h2>847 members are moving today.</h2><div class="member-stack"><span>AM</span><span>RK</span><span>+12</span></div><p>Join the 7-day consistency circle and keep your momentum visible.</p><button class="dark-action" type="button"><i class="bi bi-person-plus"></i> Join circle</button></article>
+                    <article class="feature-panel leaderboard-panel"><div class="section-title-row"><div><span class="panel-eyebrow">THIS WEEK</span><h2>Top movers</h2></div><i class="bi bi-trophy"></i></div><div class="leader-row"><b>01</b><span class="leader-avatar coral">A</span><strong>Amelia R.</strong><em>1,240 pts</em></div><div class="leader-row"><b>02</b><span class="leader-avatar mint">J</span><strong>Jordan K.</strong><em>1,080 pts</em></div><div class="leader-row"><b>03</b><span class="leader-avatar yellow">M</span><strong>Max T.</strong><em>940 pts</em></div><div class="leader-row current"><b>12</b><span class="leader-avatar dark">Y</span><strong>You</strong><em>620 pts</em></div></article>
+                </div>
+                <div class="section-title-row"><div><span class="panel-eyebrow">RECENT ENERGY</span><h2>People you follow</h2></div><button class="text-action" type="button">View all <i class="bi bi-arrow-up-right"></i></button></div>
+                <div class="feed-grid"><article class="feed-card"><span class="leader-avatar coral">S</span><div><strong>Sam completed a lower-body session</strong><p>12 minutes ago · 92% form score</p></div><i class="bi bi-fire"></i></article><article class="feed-card"><span class="leader-avatar mint">N</span><div><strong>Nadia hit a 14-day streak</strong><p>38 minutes ago · Consistency pays</p></div><i class="bi bi-lightning-charge"></i></article></div>
+            </section>
+
+            <section class="page-view" id="settingsPage" data-page-view="settings">
+                <div class="page-heading-row"><div><div class="section-label">SETTINGS</div><h1>Make IntelliFit yours.</h1><p>Set the rhythm, reminders, and feedback that fit your routine.</p></div><span class="page-kicker saved-state"><i class="bi bi-check2"></i> ALL CHANGES SAVED</span></div>
+                <div class="settings-layout">
+                    <div class="settings-nav"><button class="settings-tab active" type="button">Profile</button><button class="settings-tab" type="button">Workout preferences</button><button class="settings-tab" type="button">Notifications</button><button class="settings-tab" type="button">Privacy</button></div>
+                    <div class="settings-content"><article class="settings-section"><div class="settings-section-heading"><div><span class="panel-eyebrow">PROFILE</span><h2>Your training identity</h2></div><button class="text-action" type="button">Edit profile</button></div><div class="profile-form"><label>Display name<input type="text" value="Ryan Mitchell"></label><label>Training goal<select><option>Build strength</option><option>Improve mobility</option><option>Increase endurance</option></select></label><label>Experience level<select><option>Intermediate</option><option>Beginner</option><option>Advanced</option></select></label><label>Weekly target<input type="text" value="4 sessions"></label></div></article><article class="settings-section"><div class="settings-section-heading"><div><span class="panel-eyebrow">COACHING STYLE</span><h2>Feedback preferences</h2></div></div><label class="toggle-row"><span><strong>Form correction cues</strong><small>Show movement suggestions during live workouts.</small></span><input class="toggle-input" type="checkbox" checked><i class="toggle-ui"></i></label><label class="toggle-row"><span><strong>Session sounds</strong><small>Play a subtle sound when a rep is counted.</small></span><input class="toggle-input" type="checkbox" checked><i class="toggle-ui"></i></label></article></div>
+                </div>
+            </section>
+
+            <section class="page-view" id="analyticsPage" data-page-view="analytics">
+                <div class="page-heading-row"><div><div class="section-label">ANALYTICS</div><h1>Your work, in motion.</h1><p>See where consistency is building and where your form can go next.</p></div><button class="outline-action" type="button"><i class="bi bi-download"></i> Export report</button></div>
+                <div class="analytics-kpis"><article><span>Total sessions</span><strong>24</strong><em><i class="bi bi-arrow-up-right"></i> 18% this month</em></article><article><span>Total reps</span><strong>1,248</strong><em><i class="bi bi-arrow-up-right"></i> 224 this month</em></article><article><span>Avg. accuracy</span><strong>86.4%</strong><em><i class="bi bi-arrow-up-right"></i> 4.8% this month</em></article><article><span>Current streak</span><strong>12 days</strong><em class="neutral">Best: 21 days</em></article></div>
+                <div class="analytics-grid"><article class="feature-panel chart-panel"><div class="section-title-row"><div><span class="panel-eyebrow">PERFORMANCE</span><h2>Form score trend</h2></div><button class="period-select" type="button">Last 30 days <i class="bi bi-chevron-down"></i></button></div><div class="line-chart"><div class="chart-y"><span>100</span><span>75</span><span>50</span><span>25</span></div><div class="chart-area"><div class="chart-grid-lines"><i></i><i></i><i></i><i></i></div><svg viewBox="0 0 620 180" preserveAspectRatio="none" aria-label="Form score trend chart"><path d="M0 142 C45 132, 55 146, 90 120 S145 125, 180 105 S240 118, 275 90 S330 105, 370 78 S430 95, 465 62 S530 75, 560 42 S600 52, 620 28" fill="none" stroke="#ff6f4f" stroke-width="4" stroke-linecap="round"/><path d="M0 142 C45 132, 55 146, 90 120 S145 125, 180 105 S240 118, 275 90 S330 105, 370 78 S430 95, 465 62 S530 75, 560 42 S600 52, 620 28 V180 H0 Z" fill="url(#chartFill)" opacity=".35"/><defs><linearGradient id="chartFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ff6f4f"/><stop offset="1" stop-color="#ff6f4f" stop-opacity="0"/></linearGradient></defs></svg><div class="chart-x"><span>01 Jun</span><span>08 Jun</span><span>15 Jun</span><span>22 Jun</span><span>30 Jun</span></div></div></div></article><article class="feature-panel habit-panel"><div class="section-title-row"><div><span class="panel-eyebrow">CONSISTENCY</span><h2>June activity</h2></div><i class="bi bi-calendar3"></i></div><div class="habit-grid"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span><i></i><i class="done"></i><i class="done"></i><i></i><i class="done strong"></i><i class="done"></i><i></i><i class="done"></i><i class="done"></i><i></i><i class="done"></i><i class="done strong"></i><i class="done"></i><i></i><i></i><i class="done"></i><i class="done strong"></i><i class="done"></i><i></i><i class="done"></i><i class="done"></i><i class="done strong"></i><i></i><i class="done"></i><i class="done"></i><i class="done"></i></div><p><strong>18 active days</strong> · Keep your rhythm going.</p></article></div>
+            </section>
+        </main>
+
+        <aside class="right-column">
+            <section class="queue-wrap">
+                <div class="section-label">EXERCISES</div>
+                <div id="exerciseList"></div>
+            </section>
+
+            <section class="tip-box">
+                <i class="bi bi-lightning-charge-fill motivation-icon"></i>
+                <div class="section-label">MOTIVATION</div>
+                <p class="motivation-text" id="motivationText">Push harder than yesterday if you want a different tomorrow.</p>
+            </section>
+        </aside>
+</div>
+
+<!-- Profile Avatar & Logout (outside grid to avoid stacking context issues) -->
+<div class="avatar-wrapper">
+    <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Ryan" alt="avatar" class="avatar-mini">
+    <a href="index.html" class="logout-popup">
+        <i class="bi bi-box-arrow-right"></i> Logout
+    </a>
+</div>
+
+<!-- jQuery (Required as per instructions) -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!-- Bootstrap 5 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="dashboard.js"></script>
+</body>
+</html>
